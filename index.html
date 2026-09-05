@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CafeXGuard — İnternet Kafeler İçin Yeni Nesil Güvenlik Kalkanı</title>
   <meta name="description" content="Valorant, CS2 ve Vanguard ile %100 uyumlu; yetkisiz 3. parti hileleri ve zararlıları milisaniyeler içinde durduran yerel masa kalkanı." />
+  <meta name="author" content="CafeXGuard" />
+  <meta name="theme-color" content="#05060a" />
+  <link rel="canonical" href="https://cr7pto.github.io/CafeXGuard/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cr7pto.github.io/CafeXGuard/" />
+  <meta property="og:site_name" content="CafeXGuard" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:title" content="CafeXGuard — İnternet Kafeler İçin Yeni Nesil Güvenlik Kalkanı" />
+  <meta property="og:description" content="Valorant, CS2 ve Vanguard ile %100 uyumlu; yetkisiz 3. parti hileleri ve zararlıları milisaniyeler içinde durduran yerel masa kalkanı." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CafeXGuard — İnternet Kafeler İçin Yeni Nesil Güvenlik Kalkanı" />
+  <meta name="twitter:description" content="Yetkisiz 3. parti hileleri ve zararlıları milisaniyeler içinde durduran yerel masa kalkanı." />
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -12,20 +27,30 @@
       theme: {
         extend: {
           colors: {
-            ink: { 950: '#05060a', 900: '#090b12', 850: '#0d101a', 800: '#121623' },
-            cyber: { 400: '#4ade80', 500: '#22c55e' }
+            ink: { 950: '#05060a', 900: '#090b12', 850: '#0d101a', 800: '#121623' }
           },
           fontFamily: {
-            sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif']
+            sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Consolas', 'ui-monospace', 'monospace']
           },
           animation: {
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'float': 'float 6s ease-in-out infinite'
+            'beam': 'beam 9s ease-in-out infinite',
+            'beam-slow': 'beam 14s ease-in-out infinite',
+            'scan': 'scan 4s linear infinite',
+            'blink': 'blink 1.1s steps(1, end) infinite'
           },
           keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-12px)' }
+            beam: {
+              '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)', opacity: '.55' },
+              '50%': { transform: 'translate3d(4%, 6%, 0) scale(1.15)', opacity: '.85' }
+            },
+            scan: {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' }
+            },
+            blink: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '.15' }
             }
           }
         }
@@ -34,44 +59,80 @@
   </script>
   <style>
     body { background-color: #05060a; }
+
+    /* Siber grid deseni */
     .grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(52,211,153,.075) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(52,211,153,.075) 1px, transparent 1px);
+      background-size: 54px 54px;
+    }
+    .grid-bg-fine {
       background-image:
         linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 56px 56px;
+      background-size: 18px 18px;
     }
-    .glow-ring {
-      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 20px 60px -20px rgba(34,197,94,.35);
-    }
+
     .card-hover { transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s, box-shadow .35s; }
     .card-hover:hover { transform: translateY(-6px); border-color: rgba(34,197,94,.4); box-shadow: 0 24px 60px -24px rgba(34,197,94,.45); }
+
+    .neon-frame {
+      box-shadow:
+        0 0 0 1px rgba(52,211,153,.25),
+        0 0 30px -6px rgba(16,185,129,.35),
+        0 40px 90px -30px rgba(16,185,129,.5),
+        inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .glow-ring { box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 20px 60px -20px rgba(34,197,94,.35); }
+
     .text-gradient {
       background: linear-gradient(120deg, #ffffff 0%, #d1fae5 40%, #4ade80 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
+
+    /* SSS akordiyon */
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] .faq-icon { transform: rotate(45deg); color: #34d399; }
+    details.faq-card[open] { border-color: rgba(52,211,153,.35); box-shadow: 0 18px 50px -28px rgba(16,185,129,.6); }
+
     ::selection { background: rgba(34,197,94,.35); color: #fff; }
     ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-track { background: #05060a; }
     ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: #22c55e; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    }
   </style>
 </head>
 
-<body class="bg-ink-950 text-slate-200 font-sans antialiased selection:bg-emerald-500/30">
+<body class="bg-ink-950 font-sans text-slate-200 antialiased">
 
-  <!-- Arka plan efektleri -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_at_50%_0%,black,transparent_75%)]"></div>
-    <div class="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-emerald-500/20 blur-[140px]"></div>
-    <div class="absolute top-[45%] -right-40 h-[420px] w-[420px] rounded-full bg-teal-500/10 blur-[130px]"></div>
-    <div class="absolute bottom-0 -left-40 h-[420px] w-[420px] rounded-full bg-emerald-700/10 blur-[130px]"></div>
+  <!-- ========== ARKA PLAN: IŞIK HUZMELERİ + SİBER GRID ========== -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_at_50%_0%,black_10%,transparent_78%)]"></div>
+    <div class="absolute inset-0 grid-bg-fine opacity-60 [mask-image:radial-gradient(ellipse_at_50%_40%,black,transparent_60%)]"></div>
+
+    <!-- Zümrüt radyal huzmeler -->
+    <div class="animate-beam absolute -top-56 left-1/2 h-[620px] w-[980px] -translate-x-1/2 rounded-full bg-emerald-500/25 blur-[150px]"></div>
+    <div class="animate-beam-slow absolute top-[30%] -right-52 h-[520px] w-[520px] rounded-full bg-teal-400/15 blur-[140px]"></div>
+    <div class="animate-beam-slow absolute bottom-[5%] -left-52 h-[520px] w-[520px] rounded-full bg-emerald-600/15 blur-[140px]"></div>
+    <div class="animate-beam absolute bottom-[35%] left-1/3 h-[360px] w-[360px] rounded-full bg-lime-400/10 blur-[130px]"></div>
+
+    <!-- Konik ışık kolonu -->
+    <div class="absolute -top-20 left-1/2 h-[700px] w-[520px] -translate-x-1/2 rotate-6 bg-gradient-to-b from-emerald-400/10 via-emerald-400/[0.03] to-transparent blur-3xl"></div>
+
+    <!-- Alt vinyet -->
+    <div class="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-ink-950 to-transparent"></div>
   </div>
 
   <!-- ========== HEADER ========== -->
   <header class="sticky top-0 z-50 border-b border-white/5 bg-ink-950/70 backdrop-blur-xl">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
 
-      <!-- Logo -->
       <a href="#top" class="group flex items-center gap-3">
         <div class="relative">
           <div class="absolute inset-0 rounded-xl bg-emerald-500/40 blur-lg transition group-hover:bg-emerald-400/60"></div>
@@ -91,11 +152,11 @@
         </div>
       </a>
 
-      <!-- Menü + CTA -->
       <div class="flex items-center gap-6">
         <nav class="hidden items-center gap-6 text-sm font-medium text-slate-400 lg:flex">
           <a href="#ozellikler" class="transition hover:text-emerald-400">Özellikler</a>
           <a href="#guvenlik" class="transition hover:text-emerald-400">Güvenlik</a>
+          <a href="#sss" class="transition hover:text-emerald-400">SSS</a>
           <a href="#iletisim" class="transition hover:text-emerald-400">Destek</a>
         </nav>
         <a href="#iletisim"
@@ -113,7 +174,7 @@
   <main id="top">
 
     <!-- ========== HERO ========== -->
-    <section class="relative mx-auto max-w-7xl px-5 pb-24 pt-20 sm:px-8 sm:pt-28">
+    <section class="relative mx-auto max-w-7xl px-5 pb-20 pt-20 sm:px-8 sm:pt-28">
       <div class="mx-auto max-w-4xl text-center">
 
         <div class="mx-auto mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur">
@@ -158,25 +219,171 @@
             </svg>
           </a>
         </div>
+      </div>
 
-        <!-- İstatistikler -->
-        <div class="mx-auto mt-20 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4">
-          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
-            <div class="text-2xl font-bold text-white sm:text-3xl">&lt;5<span class="text-emerald-400">ms</span></div>
-            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Tepki Süresi</div>
+      <!-- ===== CANLI MASA TAKİP PANELİ (UI MOCKUP) ===== -->
+      <div class="relative mx-auto mt-20 max-w-5xl">
+        <div class="absolute -inset-6 -z-10 rounded-[2.5rem] bg-emerald-500/15 blur-[70px]"></div>
+
+        <div class="neon-frame overflow-hidden rounded-2xl border border-emerald-400/20 bg-ink-900/60 backdrop-blur-2xl">
+
+          <!-- Pencere başlık çubuğu -->
+          <div class="flex items-center gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-3 sm:px-5">
+            <div class="flex items-center gap-1.5">
+              <span class="h-3 w-3 rounded-full bg-rose-500/80"></span>
+              <span class="h-3 w-3 rounded-full bg-amber-400/80"></span>
+              <span class="h-3 w-3 rounded-full bg-emerald-500/80"></span>
+            </div>
+            <div class="mx-auto flex items-center gap-2 truncate rounded-lg border border-white/10 bg-ink-950/60 px-3 py-1.5">
+              <svg class="h-3.5 w-3.5 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span class="truncate font-mono text-[11px] font-medium tracking-tight text-slate-300 sm:text-xs">CafeXGuard Central Station — v1.3.0</span>
+            </div>
+            <div class="hidden items-center gap-2 sm:flex">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+              </span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-emerald-400">Live</span>
+            </div>
           </div>
-          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
-            <div class="text-2xl font-bold text-white sm:text-3xl">0<span class="text-emerald-400">/70</span></div>
-            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">VirusTotal</div>
+
+          <!-- Panel gövdesi -->
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-0 grid-bg-fine opacity-40"></div>
+            <div class="pointer-events-none absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-transparent via-emerald-400/[0.06] to-transparent"></div>
+
+            <!-- Üst özet şeridi -->
+            <div class="relative grid grid-cols-2 gap-px border-b border-white/5 bg-white/5 sm:grid-cols-4">
+              <div class="bg-ink-950/60 px-4 py-3">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Aktif Masa</div>
+                <div class="mt-1 text-lg font-bold text-white">24<span class="text-sm text-slate-500">/24</span></div>
+              </div>
+              <div class="bg-ink-950/60 px-4 py-3">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Kalkan</div>
+                <div class="mt-1 text-lg font-bold text-emerald-400">Aktif</div>
+              </div>
+              <div class="bg-ink-950/60 px-4 py-3">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Bugün Engellenen</div>
+                <div class="mt-1 text-lg font-bold text-white">17</div>
+              </div>
+              <div class="bg-ink-950/60 px-4 py-3">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Ortalama CPU</div>
+                <div class="mt-1 text-lg font-bold text-white">%0.03</div>
+              </div>
+            </div>
+
+            <!-- Tablo başlığı -->
+            <div class="relative hidden grid-cols-12 gap-4 border-b border-white/5 px-5 py-2.5 font-mono text-[10px] uppercase tracking-widest text-slate-500 md:grid">
+              <div class="col-span-2">Masa</div>
+              <div class="col-span-5">Süreç / Olay</div>
+              <div class="col-span-3">Durum</div>
+              <div class="col-span-2 text-right">Metrik</div>
+            </div>
+
+            <!-- Masa satırları -->
+            <div class="relative divide-y divide-white/5">
+
+              <!-- Masa-03 -->
+              <div class="grid grid-cols-1 gap-3 px-5 py-4 transition hover:bg-white/[0.03] md:grid-cols-12 md:items-center md:gap-4">
+                <div class="col-span-2 flex items-center gap-2.5">
+                  <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_10px_2px_rgba(34,197,94,.6)]"></span>
+                  <span class="font-mono text-sm font-semibold text-white">Masa-03</span>
+                </div>
+                <div class="col-span-5 flex items-center gap-2.5">
+                  <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/5 text-[10px] font-bold text-rose-400">VAL</span>
+                  <span class="truncate text-sm text-slate-300">VALORANT</span>
+                </div>
+                <div class="col-span-3">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                    Kalkan Aktif
+                  </span>
+                </div>
+                <div class="col-span-2 font-mono text-xs text-slate-400 md:text-right">
+                  CPU: <span class="text-emerald-400">%0.02</span>
+                </div>
+              </div>
+
+              <!-- Masa-07 : TEHDİT -->
+              <div class="relative grid grid-cols-1 gap-3 bg-rose-500/[0.07] px-5 py-4 md:grid-cols-12 md:items-center md:gap-4">
+                <span class="absolute inset-y-0 left-0 w-[3px] animate-blink bg-rose-500 shadow-[0_0_12px_2px_rgba(244,63,94,.7)]"></span>
+                <div class="col-span-2 flex items-center gap-2.5">
+                  <span class="h-2 w-2 shrink-0 animate-blink rounded-full bg-rose-500 shadow-[0_0_10px_2px_rgba(244,63,94,.7)]"></span>
+                  <span class="font-mono text-sm font-semibold text-white">Masa-07</span>
+                </div>
+                <div class="col-span-5 flex items-center gap-2.5">
+                  <span class="flex h-7 w-7 shrink-0 animate-blink items-center justify-center rounded-md border border-rose-400/30 bg-rose-500/15 text-rose-400">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 9v4M12 17h.01"/>
+                      <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    </svg>
+                  </span>
+                  <span class="min-w-0 truncate text-sm">
+                    <span class="font-semibold text-rose-300">TEHDİT ENGELLENDİ:</span>
+                    <span class="font-mono text-slate-300">cheat_injector.exe</span>
+                  </span>
+                </div>
+                <div class="col-span-3">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-rose-400/40 bg-rose-500/15 px-2.5 py-1 text-xs font-semibold text-rose-300">
+                    <span class="h-1.5 w-1.5 animate-blink rounded-full bg-rose-400"></span>
+                    Anında Sonlandırıldı
+                  </span>
+                </div>
+                <div class="col-span-2 font-mono text-xs text-slate-400 md:text-right">
+                  Süre: <span class="text-rose-300">3ms</span>
+                </div>
+              </div>
+
+              <!-- Masa-11 -->
+              <div class="grid grid-cols-1 gap-3 px-5 py-4 transition hover:bg-white/[0.03] md:grid-cols-12 md:items-center md:gap-4">
+                <div class="col-span-2 flex items-center gap-2.5">
+                  <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_10px_2px_rgba(34,197,94,.6)]"></span>
+                  <span class="font-mono text-sm font-semibold text-white">Masa-11</span>
+                </div>
+                <div class="col-span-5 flex items-center gap-2.5">
+                  <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/5 text-[10px] font-bold text-amber-400">CS2</span>
+                  <span class="truncate text-sm text-slate-300">Counter-Strike 2</span>
+                </div>
+                <div class="col-span-3">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                    Kalkan Aktif
+                  </span>
+                </div>
+                <div class="col-span-2 font-mono text-xs text-slate-400 md:text-right">
+                  Ping: <span class="text-emerald-400">4ms</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel alt bilgi -->
+            <div class="relative flex flex-wrap items-center justify-between gap-3 border-t border-white/5 bg-white/[0.02] px-5 py-3 font-mono text-[10px] uppercase tracking-widest text-slate-500">
+              <span>Ring 3 · Kernel sürücüsü yok</span>
+              <span class="text-emerald-400/80">Son senkronizasyon: 00:00:01 önce</span>
+            </div>
           </div>
-          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
-            <div class="text-2xl font-bold text-white sm:text-3xl">Ring <span class="text-emerald-400">3</span></div>
-            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Sürücüsüz</div>
-          </div>
-          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
-            <div class="text-2xl font-bold text-white sm:text-3xl">7/24</div>
-            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Masa Koruması</div>
-          </div>
+        </div>
+      </div>
+
+      <!-- İstatistikler -->
+      <div class="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 text-center sm:grid-cols-4">
+        <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+          <div class="text-2xl font-bold text-white sm:text-3xl">&lt;5<span class="text-emerald-400">ms</span></div>
+          <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Tepki Süresi</div>
+        </div>
+        <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+          <div class="text-2xl font-bold text-white sm:text-3xl">0<span class="text-emerald-400">/70</span></div>
+          <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">VirusTotal</div>
+        </div>
+        <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+          <div class="text-2xl font-bold text-white sm:text-3xl">Ring <span class="text-emerald-400">3</span></div>
+          <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Sürücüsüz</div>
+        </div>
+        <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+          <div class="text-2xl font-bold text-white sm:text-3xl">7/24</div>
+          <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Masa Koruması</div>
         </div>
       </div>
     </section>
@@ -195,7 +402,6 @@
 
       <div class="mt-16 grid gap-6 md:grid-cols-3">
 
-        <!-- Kart 1 -->
         <article class="card-hover group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
           <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
           <div class="relative">
@@ -218,7 +424,6 @@
           </div>
         </article>
 
-        <!-- Kart 2 -->
         <article class="card-hover group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
           <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
           <div class="relative">
@@ -241,7 +446,6 @@
           </div>
         </article>
 
-        <!-- Kart 3 -->
         <article class="card-hover group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
           <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
           <div class="relative">
@@ -296,7 +500,6 @@
           </div>
 
           <div class="grid gap-5 sm:grid-cols-2">
-            <!-- VirusTotal -->
             <div class="card-hover rounded-2xl border border-emerald-400/20 bg-ink-950/70 p-6 backdrop-blur">
               <div class="flex items-center justify-between">
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
@@ -313,7 +516,6 @@
               </p>
             </div>
 
-            <!-- Ring 3 -->
             <div class="card-hover rounded-2xl border border-white/10 bg-ink-950/70 p-6 backdrop-blur">
               <div class="flex items-center justify-between">
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300">
@@ -335,6 +537,67 @@
       </div>
     </section>
 
+    <!-- ========== SSS ========== -->
+    <section id="sss" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 sm:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-emerald-400">SSS</span>
+        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Sıkça Sorulan Sorular
+        </h2>
+        <p class="mt-4 text-slate-400">
+          İşletmecilerin en çok merak ettiği üç soruya net cevaplar.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-14 max-w-3xl space-y-4">
+
+        <details class="faq-card overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 transition hover:border-emerald-400/30" open>
+          <summary class="flex items-start justify-between gap-6 p-6">
+            <h3 class="text-base font-semibold text-white sm:text-lg">Riot Vanguard veya Valve VAC ban riski var mı?</h3>
+            <svg class="faq-icon mt-0.5 h-5 w-5 shrink-0 text-slate-500 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </summary>
+          <div class="border-t border-white/5 px-6 py-5">
+            <p class="text-sm leading-relaxed text-slate-400">
+              <span class="font-semibold text-emerald-400">Kesinlikle hayır.</span> Oyun belleğine (RAM) veya dosyalarına
+              müdahale etmez. Windows Ring 3 kullanıcı seviyesinde dış süreçleri denetleyen %100 uyumlu bir kalkandır.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-card overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 transition hover:border-emerald-400/30">
+          <summary class="flex items-start justify-between gap-6 p-6">
+            <h3 class="text-base font-semibold text-white sm:text-lg">Bilgisayarlarda kasma veya FPS düşüşü yapar mı?</h3>
+            <svg class="faq-icon mt-0.5 h-5 w-5 shrink-0 text-slate-500 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </summary>
+          <div class="border-t border-white/5 px-6 py-5">
+            <p class="text-sm leading-relaxed text-slate-400">
+              <span class="font-semibold text-emerald-400">%0.1 dahi CPU tüketmeyen</span> ultra hafif mimarisi sayesinde
+              oyun performansına hiçbir etkisi yoktur.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-card overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 transition hover:border-emerald-400/30">
+          <summary class="flex items-start justify-between gap-6 p-6">
+            <h3 class="text-base font-semibold text-white sm:text-lg">Güncellemeler için masaları tek tek gezmek gerekir mi?</h3>
+            <svg class="faq-icon mt-0.5 h-5 w-5 shrink-0 text-slate-500 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </summary>
+          <div class="border-t border-white/5 px-6 py-5">
+            <p class="text-sm leading-relaxed text-slate-400">
+              <span class="font-semibold text-emerald-400">Hayır.</span> Bulut auto-updater mimarisi sayesinde ana kasadan
+              tek tıkla ağdaki tüm masalara 3 saniyede sessizce dağıtılır.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
     <!-- ========== İLETİŞİM ========== -->
     <section id="iletisim" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 sm:px-8">
       <div class="mx-auto max-w-3xl text-center">
@@ -343,7 +606,8 @@
           14 gün ücretsiz pilot için bize ulaşın
         </h2>
         <p class="mt-4 text-slate-400">
-          Salonunuza özel kurulum, masa sayısına göre fiyatlandırma ve teknik destek için doğrudan bize yazın.
+          Salonunuza özel kurulum, masa sayısına göre fiyatlandırma ve teknik destek için
+          Instagram DM'den veya destek e-postasından doğrudan bize yazın.
         </p>
       </div>
 
@@ -353,9 +617,14 @@
         <div class="card-hover rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
           <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Geliştirici &amp; Marka</span>
           <div class="mt-4 flex items-center gap-4">
-            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-xl font-black text-ink-950">L</div>
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400/30 bg-gradient-to-br from-emerald-500/25 to-emerald-900/20 text-emerald-400">
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
             <div>
-              <div class="text-xl font-bold text-white">limitsizweb</div>
+              <div class="text-xl font-bold text-white">CafeXGuard</div>
               <div class="text-sm text-slate-500">Yazılım &amp; Güvenlik Çözümleri</div>
             </div>
           </div>
@@ -363,12 +632,19 @@
             CafeXGuard, internet kafe işletmecilerinin gerçek sorunlarını dinleyerek geliştirilen
             yerli bir masa güvenlik çözümüdür.
           </p>
+          <a href="https://cr7pto.github.io/CafeXGuard/"
+             class="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-semibold text-slate-300 transition hover:border-emerald-400/30 hover:text-emerald-300">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/>
+            </svg>
+            cr7pto.github.io/CafeXGuard
+          </a>
         </div>
 
         <!-- İletişim kanalları -->
         <div class="flex flex-col gap-4">
 
-          <a href="https://instagram.com/limitsizweb" target="_blank" rel="noopener noreferrer"
+          <a href="https://instagram.com/cafexguard" target="_blank" rel="noopener noreferrer"
              class="card-hover group flex items-center gap-4 rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-6">
             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 via-rose-500 to-amber-400 text-white">
               <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -378,15 +654,15 @@
               </svg>
             </div>
             <div class="min-w-0 flex-1">
-              <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Instagram</div>
-              <div class="truncate text-base font-semibold text-white">@limitsizweb</div>
+              <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Instagram DM</div>
+              <div class="truncate text-base font-semibold text-white">@cafexguard</div>
             </div>
             <svg class="h-5 w-5 shrink-0 text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
 
-          <a href="mailto:destek@limitsizweb.com?subject=CafeXGuard%2014%20G%C3%BCn%20%C3%9Ccretsiz%20Pilot%20Talebi"
+          <a href="mailto:destekcafexguard@gmail.com?subject=CafeXGuard%2014%20G%C3%BCn%20%C3%9Ccretsiz%20Pilot%20Talebi"
              class="card-hover group flex items-center gap-4 rounded-3xl border border-emerald-400/25 bg-gradient-to-r from-emerald-500/15 to-teal-500/10 p-6">
             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-ink-950">
               <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -396,7 +672,7 @@
             </div>
             <div class="min-w-0 flex-1">
               <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400/80">Destek E-postası</div>
-              <div class="truncate text-base font-semibold text-white">destek@limitsizweb.com</div>
+              <div class="truncate text-base font-semibold text-white">destekcafexguard@gmail.com</div>
             </div>
             <svg class="h-5 w-5 shrink-0 text-emerald-400 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -424,19 +700,28 @@
       </div>
 
       <p class="text-center text-xs text-slate-600">
-        © <span id="yil">2026</span> CafeXGuard — <span class="text-slate-400">limitsizweb</span> tarafından geliştirildi. Tüm hakları saklıdır.
+        © <span id="yil">2026</span> CafeXGuard. Tüm hakları saklıdır.
       </p>
 
       <div class="flex items-center gap-4 text-xs text-slate-500">
-        <a href="#ozellikler" class="transition hover:text-emerald-400">Özellikler</a>
-        <a href="#guvenlik" class="transition hover:text-emerald-400">Güvenlik</a>
-        <a href="#iletisim" class="transition hover:text-emerald-400">Destek</a>
+        <a href="https://instagram.com/cafexguard" target="_blank" rel="noopener noreferrer" class="transition hover:text-emerald-400">@cafexguard</a>
+        <a href="mailto:destekcafexguard@gmail.com" class="transition hover:text-emerald-400">Destek</a>
+        <a href="#sss" class="transition hover:text-emerald-400">SSS</a>
       </div>
     </div>
   </footer>
 
   <script>
     document.getElementById('yil').textContent = new Date().getFullYear();
+
+    // SSS: aynı anda tek soru açık kalsın
+    const sssler = document.querySelectorAll('#sss details');
+    sssler.forEach((d) => {
+      d.addEventListener('toggle', () => {
+        if (!d.open) return;
+        sssler.forEach((o) => { if (o !== d) o.open = false; });
+      });
+    });
   </script>
 </body>
 </html>
