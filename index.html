@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CafeXGuard — İnternet Kafeler İçin Yeni Nesil Güvenlik Kalkanı</title>
+  <meta name="description" content="Valorant, CS2 ve Vanguard ile %100 uyumlu; yetkisiz 3. parti hileleri ve zararlıları milisaniyeler içinde durduran yerel masa kalkanı." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: { 950: '#05060a', 900: '#090b12', 850: '#0d101a', 800: '#121623' },
+            cyber: { 400: '#4ade80', 500: '#22c55e' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif']
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #05060a; }
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .glow-ring {
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 20px 60px -20px rgba(34,197,94,.35);
+    }
+    .card-hover { transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s, box-shadow .35s; }
+    .card-hover:hover { transform: translateY(-6px); border-color: rgba(34,197,94,.4); box-shadow: 0 24px 60px -24px rgba(34,197,94,.45); }
+    .text-gradient {
+      background: linear-gradient(120deg, #ffffff 0%, #d1fae5 40%, #4ade80 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    ::selection { background: rgba(34,197,94,.35); color: #fff; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #05060a; }
+    ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #22c55e; }
+  </style>
+</head>
+
+<body class="bg-ink-950 text-slate-200 font-sans antialiased selection:bg-emerald-500/30">
+
+  <!-- Arka plan efektleri -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_at_50%_0%,black,transparent_75%)]"></div>
+    <div class="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-emerald-500/20 blur-[140px]"></div>
+    <div class="absolute top-[45%] -right-40 h-[420px] w-[420px] rounded-full bg-teal-500/10 blur-[130px]"></div>
+    <div class="absolute bottom-0 -left-40 h-[420px] w-[420px] rounded-full bg-emerald-700/10 blur-[130px]"></div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-ink-950/70 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+
+      <!-- Logo -->
+      <a href="#top" class="group flex items-center gap-3">
+        <div class="relative">
+          <div class="absolute inset-0 rounded-xl bg-emerald-500/40 blur-lg transition group-hover:bg-emerald-400/60"></div>
+          <div class="relative flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-400/30 bg-gradient-to-br from-emerald-500/25 to-emerald-900/20">
+            <svg class="h-6 w-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="leading-tight">
+          <div class="flex items-center gap-2">
+            <span class="text-lg font-bold tracking-tight text-white">Cafe<span class="text-emerald-400">X</span>Guard</span>
+            <span class="hidden rounded-md border border-emerald-400/25 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-300 sm:inline">Secure</span>
+          </div>
+          <span class="text-[11px] font-medium tracking-wide text-slate-500">Internet Cafe Shield</span>
+        </div>
+      </a>
+
+      <!-- Menü + CTA -->
+      <div class="flex items-center gap-6">
+        <nav class="hidden items-center gap-6 text-sm font-medium text-slate-400 lg:flex">
+          <a href="#ozellikler" class="transition hover:text-emerald-400">Özellikler</a>
+          <a href="#guvenlik" class="transition hover:text-emerald-400">Güvenlik</a>
+          <a href="#iletisim" class="transition hover:text-emerald-400">Destek</a>
+        </nav>
+        <a href="#iletisim"
+           class="group inline-flex items-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-2.5 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-500/20 hover:text-emerald-200">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16v12H5.17L4 17.17V4z"/>
+          </svg>
+          <span class="hidden sm:inline">İletişim &amp; Destek</span>
+          <span class="sm:hidden">Destek</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ========== HERO ========== -->
+    <section class="relative mx-auto max-w-7xl px-5 pb-24 pt-20 sm:px-8 sm:pt-28">
+      <div class="mx-auto max-w-4xl text-center">
+
+        <div class="mx-auto mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300 backdrop-blur">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          Vanguard · Easy Anti-Cheat · VAC ile tam uyumlu
+        </div>
+
+        <h1 class="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
+          <span class="text-gradient">İnternet Kafeler İçin</span><br />
+          <span class="text-white">Yeni Nesil</span>
+          <span class="relative inline-block text-emerald-400">
+            Güvenlik Kalkanı
+            <svg class="absolute -bottom-3 left-0 w-full text-emerald-500/50" height="10" viewBox="0 0 300 10" fill="none" preserveAspectRatio="none">
+              <path d="M2 7c60-5 120-5 180-2s90 3 116-1" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h1>
+
+        <p class="mx-auto mt-10 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          Valorant, CS2 ve Vanguard ile <span class="font-semibold text-emerald-400">%100 uyumlu</span>;
+          yetkisiz 3. parti hileleri ve zararlıları <span class="font-semibold text-white">milisaniyeler içinde</span>
+          durduran yerel masa kalkanı.
+        </p>
+
+        <div class="mt-11 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="#iletisim"
+             class="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-8 py-4 text-base font-bold text-ink-950 shadow-[0_20px_50px_-15px_rgba(34,197,94,.7)] transition hover:scale-[1.03] hover:shadow-[0_25px_60px_-15px_rgba(34,197,94,.9)] sm:w-auto">
+            <span class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full"></span>
+            <svg class="relative h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m13 2-9 12h7l-1 8 9-12h-7l1-8z"/>
+            </svg>
+            <span class="relative">14 Gün Ücretsiz Pilot Başlat</span>
+          </a>
+          <a href="#ozellikler"
+             class="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-slate-200 backdrop-blur transition hover:border-white/20 hover:bg-white/10 sm:w-auto">
+            Nasıl Çalışır?
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- İstatistikler -->
+        <div class="mx-auto mt-20 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4">
+          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+            <div class="text-2xl font-bold text-white sm:text-3xl">&lt;5<span class="text-emerald-400">ms</span></div>
+            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Tepki Süresi</div>
+          </div>
+          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+            <div class="text-2xl font-bold text-white sm:text-3xl">0<span class="text-emerald-400">/70</span></div>
+            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">VirusTotal</div>
+          </div>
+          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+            <div class="text-2xl font-bold text-white sm:text-3xl">Ring <span class="text-emerald-400">3</span></div>
+            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Sürücüsüz</div>
+          </div>
+          <div class="bg-ink-900/80 px-4 py-6 backdrop-blur">
+            <div class="text-2xl font-bold text-white sm:text-3xl">7/24</div>
+            <div class="mt-1 text-[11px] font-medium uppercase tracking-wider text-slate-500">Masa Koruması</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ÖZELLİKLER ========== -->
+    <section id="ozellikler" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 sm:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-emerald-400">Özellikler</span>
+        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Kasadan kalkmadan tüm salonu yönetin
+        </h2>
+        <p class="mt-4 text-slate-400">
+          CafeXGuard, her masada sessizce çalışır; hileyi tespit eder, engeller ve raporlar.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-6 md:grid-cols-3">
+
+        <!-- Kart 1 -->
+        <article class="card-hover group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
+          <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
+          <div class="relative">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-500/10 text-emerald-400">
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Donanım (HWID) Ban Koruması</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">
+              Hile yazılımının açılmasını <span class="text-slate-200">anında engeller</span> ve masayı korur.
+              Anti-cheat sistemlerinin donanım kimliğini yasaklamasına fırsat kalmadan süreç sonlandırılır.
+            </p>
+            <ul class="mt-6 space-y-2 text-sm text-slate-400">
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Anlık süreç sonlandırma</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Kalıcı ban riski sıfırlanır</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Kart 2 -->
+        <article class="card-hover group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
+          <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
+          <div class="relative">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-500/10 text-emerald-400">
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 11V7a6 6 0 0 1 12 0v4"/>
+                <rect x="3" y="11" width="18" height="10" rx="2"/>
+                <path d="m9 16 2 2 4-4"/>
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Otomatik Süreç &amp; Oyun Tanıma</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">
+              Steam, Riot ve Epic kütüphanelerindeki oyunları <span class="text-slate-200">tek tıkla öğrenir</span>.
+              Beyaz listeyi kendi oluşturur, tanımadığı süreçleri karantinaya alır.
+            </p>
+            <ul class="mt-6 space-y-2 text-sm text-slate-400">
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Otomatik beyaz liste</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Manuel kurulum derdi yok</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Kart 3 -->
+        <article class="card-hover group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
+          <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl transition group-hover:bg-emerald-500/20"></div>
+          <div class="relative">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-500/10 text-emerald-400">
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v12"/>
+                <path d="m8 11 4 4 4-4"/>
+                <path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-1.3A7 7 0 1 0 4 14.9"/>
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Merkezi Sessiz Güncelleme</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">
+              Kasadan kalkmadan <span class="text-slate-200">tüm masalara tek tıkla dağıtım</span>.
+              Güncellemeler arka planda, oyuncuyu rahatsız etmeden ve oturum düşürmeden uygulanır.
+            </p>
+            <ul class="mt-6 space-y-2 text-sm text-slate-400">
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Tek panelden yönetim</li>
+              <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Yeniden başlatma gerekmez</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== GÜVENLİK ========== -->
+    <section id="guvenlik" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-16 sm:px-8">
+      <div class="glow-ring relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-ink-850 via-ink-900 to-ink-950 p-8 sm:p-12">
+        <div class="absolute -left-24 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-emerald-500/15 blur-[100px]"></div>
+        <div class="absolute inset-0 grid-bg opacity-40 [mask-image:radial-gradient(ellipse_at_80%_50%,black,transparent_70%)]"></div>
+
+        <div class="relative grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-[0.25em] text-emerald-400">Güvenlik &amp; Şeffaflık</span>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Kanıtlanabilir temiz, çekirdeğe dokunmayan mimari
+            </h2>
+            <p class="mt-5 leading-relaxed text-slate-400">
+              CafeXGuard, kernel seviyesine hiçbir sürücü yüklemez. Kullanıcı modunda (Ring 3) çalıştığı için
+              Vanguard, Easy Anti-Cheat ve VAC ile çakışmaz; sisteminizde mavi ekran veya performans kaybı riski oluşturmaz.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                İmzalı Yürütülebilir Dosya
+              </span>
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-300">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+                Telemetri Toplanmaz
+              </span>
+            </div>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <!-- VirusTotal -->
+            <div class="card-hover rounded-2xl border border-emerald-400/20 bg-ink-950/70 p-6 backdrop-blur">
+              <div class="flex items-center justify-between">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
+                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
+                <span class="rounded-md bg-emerald-500/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400">Temiz</span>
+              </div>
+              <div class="mt-5 text-3xl font-extrabold text-white">0<span class="text-emerald-400">/70</span></div>
+              <h3 class="mt-2 text-sm font-bold text-white">VirusTotal Temiz Raporu</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-400">
+                70 antivirüs motorunun tamamı CafeXGuard'ı zararsız olarak işaretliyor.
+              </p>
+            </div>
+
+            <!-- Ring 3 -->
+            <div class="card-hover rounded-2xl border border-white/10 bg-ink-950/70 p-6 backdrop-blur">
+              <div class="flex items-center justify-between">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300">
+                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </div>
+                <span class="rounded-md bg-teal-500/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-teal-300">Ring 3</span>
+              </div>
+              <div class="mt-5 text-3xl font-extrabold text-white">Güvenli</div>
+              <h3 class="mt-2 text-sm font-bold text-white">Ring 3 Güvenli Süreç</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-400">
+                Kernel sürücüsü yok. Anti-cheat çakışması ve BSOD riski taşımaz.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== İLETİŞİM ========== -->
+    <section id="iletisim" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 sm:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-emerald-400">İletişim &amp; Destek</span>
+        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          14 gün ücretsiz pilot için bize ulaşın
+        </h2>
+        <p class="mt-4 text-slate-400">
+          Salonunuza özel kurulum, masa sayısına göre fiyatlandırma ve teknik destek için doğrudan bize yazın.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-14 grid max-w-4xl gap-6 md:grid-cols-2">
+
+        <!-- Marka kartı -->
+        <div class="card-hover rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-8">
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Geliştirici &amp; Marka</span>
+          <div class="mt-4 flex items-center gap-4">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-xl font-black text-ink-950">L</div>
+            <div>
+              <div class="text-xl font-bold text-white">limitsizweb</div>
+              <div class="text-sm text-slate-500">Yazılım &amp; Güvenlik Çözümleri</div>
+            </div>
+          </div>
+          <p class="mt-6 text-sm leading-relaxed text-slate-400">
+            CafeXGuard, internet kafe işletmecilerinin gerçek sorunlarını dinleyerek geliştirilen
+            yerli bir masa güvenlik çözümüdür.
+          </p>
+        </div>
+
+        <!-- İletişim kanalları -->
+        <div class="flex flex-col gap-4">
+
+          <a href="https://instagram.com/limitsizweb" target="_blank" rel="noopener noreferrer"
+             class="card-hover group flex items-center gap-4 rounded-3xl border border-white/10 bg-gradient-to-b from-ink-850 to-ink-950 p-6">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 via-rose-500 to-amber-400 text-white">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Instagram</div>
+              <div class="truncate text-base font-semibold text-white">@limitsizweb</div>
+            </div>
+            <svg class="h-5 w-5 shrink-0 text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <a href="mailto:destek@limitsizweb.com?subject=CafeXGuard%2014%20G%C3%BCn%20%C3%9Ccretsiz%20Pilot%20Talebi"
+             class="card-hover group flex items-center gap-4 rounded-3xl border border-emerald-400/25 bg-gradient-to-r from-emerald-500/15 to-teal-500/10 p-6">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-ink-950">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m2 7 10 6 10-6"/>
+              </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400/80">Destek E-postası</div>
+              <div class="truncate text-base font-semibold text-white">destek@limitsizweb.com</div>
+            </div>
+            <svg class="h-5 w-5 shrink-0 text-emerald-400 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <div class="rounded-3xl border border-white/5 bg-white/[0.02] p-5 text-center text-xs text-slate-500">
+            Ortalama yanıt süresi <span class="font-semibold text-slate-300">2 saat</span> · Hafta içi 09:00 – 22:00
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-white/5 bg-ink-950/80">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-5 py-10 sm:px-8 md:flex-row">
+      <div class="flex items-center gap-3">
+        <div class="flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-400/25 bg-emerald-500/10">
+          <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <span class="text-sm font-semibold text-slate-300">Cafe<span class="text-emerald-400">X</span>Guard</span>
+      </div>
+
+      <p class="text-center text-xs text-slate-600">
+        © <span id="yil">2026</span> CafeXGuard — <span class="text-slate-400">limitsizweb</span> tarafından geliştirildi. Tüm hakları saklıdır.
+      </p>
+
+      <div class="flex items-center gap-4 text-xs text-slate-500">
+        <a href="#ozellikler" class="transition hover:text-emerald-400">Özellikler</a>
+        <a href="#guvenlik" class="transition hover:text-emerald-400">Güvenlik</a>
+        <a href="#iletisim" class="transition hover:text-emerald-400">Destek</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yil').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
